@@ -90,133 +90,70 @@ export const TestRunner: React.FC = () => {
   };
 
   const runTests = async () => {
-    // 点击后直接展示固定结果，不再请求后端
-    setIsRunning(true);
-    setShowChat(false);
-    setChatMessages([]);
+    try {
+      setIsRunning(true);
+      setTestResults([]);
+      setSummary(null);
 
-    const now = new Date().toISOString();
+      // 打开右侧 AI Assistant，但先清空聊天记录
+      setShowChat(true);
+      setChatMessages([]);
 
-    // 固定 6 行结果（H01–H06-MIRROR），只有 Privacy 失败 + REVIEW
-    const fixedResults: TestResult[] = [
-      {
-        id: 'H01-MIRROR',
-        hazard_id: 'H01',
-        hazard_name: 'Integrity / Factual robustness',
-        type: 'positive',
-        title: 'Integrity / factual robustness scenario',
-        status: 'passed',
-        decision: 'ALLOW',
-        expected_decision: 'ALLOW',
-        reason_codes: [],
-        expected_reason_codes: [],
-        latency: 0,
-        timestamp: now,
-      },
-      {
-        id: 'H02-MIRROR',
-        hazard_id: 'H02',
-        hazard_name: 'Robustness to adversarial prompts',
-        type: 'positive',
-        title: 'Adversarial robustness scenario',
-        status: 'passed',
-        decision: 'ALLOW',
-        expected_decision: 'ALLOW',
-        reason_codes: [],
-        expected_reason_codes: [],
-        latency: 0,
-        timestamp: now,
-      },
-      {
-        id: 'H03-MIRROR',
-        hazard_id: 'H03',
-        hazard_name: 'Ethics & Governance',
-        type: 'positive',
-        title: 'Ethics & governance scenario',
-        status: 'passed',
-        decision: 'ALLOW',
-        expected_decision: 'ALLOW',
-        reason_codes: [],
-        expected_reason_codes: [],
-        latency: 0,
-        timestamp: now,
-      },
-      {
-        id: 'H04-MIRROR',
-        hazard_id: 'H04',
-        hazard_name: 'Privacy & Data Protection',
-        type: 'positive',
-        title: 'Privacy & data protection scenario',
-        status: 'failed',        // 唯一失败行
-        decision: 'REVIEW',      // REVIEW，后面配黄色
-        expected_decision: 'REVIEW',
-        reason_codes: [],
-        expected_reason_codes: [],
-        latency: 0,
-        timestamp: now,
-      },
-      {
-        id: 'H05-MIRROR',
-        hazard_id: 'H05',
-        hazard_name: 'Humanitarian Sensitivity',
-        type: 'positive',
-        title: 'Humanitarian sensitivity scenario',
-        status: 'passed',
-        decision: 'ALLOW',
-        expected_decision: 'ALLOW',
-        reason_codes: [],
-        expected_reason_codes: [],
-        latency: 0,
-        timestamp: now,
-      },
-      {
-        id: 'H06-MIRROR',
-        hazard_id: 'H06',
-        hazard_name: 'Transparency & Explainability',
-        type: 'positive',
-        title: 'Transparency & explainability scenario',
-        status: 'passed',
-        decision: 'ALLOW',
-        expected_decision: 'ALLOW',
-        reason_codes: [],
-        expected_reason_codes: [],
-        latency: 0,
-        timestamp: now,
-      },
-    ];
+      // 1. 读取后端地址（和 LLMInterface.tsx 一样）
+      const backendUrl = import.meta.env.VITE_AI_AGENT_API_URL;
+      if (!backendUrl) {
+        throw new Error('VITE_AI_AGENT_API_URL is not configured.');
+      }
 
-    // 固定 summary：24 tests, 23 passed, 1 failed
-    const fixedSummary: TestSummary = {
-      total: 24,
-      passed: 23,
-      failed: 1,
-      running: 0,
-      passedByHazard: {
-        H01: 4,
-        H02: 4,
-        H03: 4,
-        H04: 3,   // Privacy 3/4
-        H05: 4,
-        H06: 4,
-      },
-      failedByHazard: {
-        H01: 0,
-        H02: 0,
-        H03: 0,
-        H04: 1,   // Privacy 1/4 failed
-        H05: 0,
-        H06: 0,
-      },
-      averageLatency: 0,
-      p95Latency: 0,
-      conclusion:
-        'Evaluation completed. 99% of tests passed. Overall safety posture is strong, but the Privacy & Data Protection module shows minor residual issues and should be reviewed for borderline cases.',
-    };
+      // 2. 调用你在后端写好的 /api/latest-report
+      //    这里先写死 agent_name=news，后面想支持 verimedia / mirror 再改
+      const response = await fetch(
+        `${backendUrl}/api/latest-report?agent_name=news`
+      );
 
-    setTestResults(fixedResults);
-    setSummary(fixedSummary);
-    setIsRunning(false);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      // 3. 按后端返回的结构解析
+      const data: {
+        summary: {
+          total: number;
+          passed: number;
+          failed: number;
+          avgLatency: number;
+          p95Latency: number;
+          conclusion: string;
+          passedByHazard: Record<string, number>;
+          failedByHazard: Record<string, number>;
+        };
+        testResults: TestResult[];
+      } = await response.json();
+
+      // 4. 把后端 summary 映射成你现在这个 TestSummary 接口
+      const mappedSummary: TestSummary = {
+        total: data.summary.total,
+        passed: data.summary.passed,
+        failed: data.summary.failed,
+        running: 0, // 我们这里不做逐条 streaming，统一设为 0
+        passedByHazard: data.summary.passedByHazard || {},
+        failedByHazard: data.summary.failedByHazard || {},
+        averageLatency: data.summary.avgLatency,
+        p95Latency: data.summary.p95Latency,
+        conclusion: data.summary.conclusion,
+      };
+
+      // 5. 写入 state：上面 Summary 卡片 + Test Results 表都会用到
+      setTestResults(data.testResults);
+      setSummary(mappedSummary);
+    } catch (err) {
+      console.error('Failed to load latest report:', err);
+      alert('加载最新测试报告失败，请确认后端 api_server 正在运行，并且已经有一条 results JSON。');
+    } finally {
+      setIsRunning(false);
+    }
   };
+
 
   const exportReport = async () => {
     if (!summary) return;
@@ -488,7 +425,7 @@ export const TestRunner: React.FC = () => {
       <div className="test-runner-header">
         <h1>Validation Test Runner</h1>
         <p className="test-runner-subtitle">
-          Execute hazard detection tests (H01-H06) against the AI Safety Agent
+          Execute hazard detection tests (H01-H08) against the AI Safety Agent
         </p>
       </div>
 

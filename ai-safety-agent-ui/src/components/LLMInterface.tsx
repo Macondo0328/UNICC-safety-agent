@@ -39,6 +39,7 @@ interface TestSummary {
   p95Latency: number;
   conclusion: string;
   safetyScore: number; // 0-100
+  modulePercentages?: Record<string, number>;
 }
 
 interface ChatMessage {
@@ -48,6 +49,21 @@ interface ChatMessage {
 }
 
 type Step = 'select' | 'testing' | 'results' | 'chat';
+
+// 把前端下拉框里的值，映射到后端需要的 agent_name
+const mapAgentToBackend = (value: string): string => {
+  switch (value) {
+    case 'news-xenophobia':
+      return 'news';          // News Xenophobia → 后端 'news'
+    case 'verimedia':
+      return 'verimedia';     // VeriMedia → 后端 'verimedia'
+    case 'mirror':
+      return 'hate_speech';   // MIRROR → 后端 'hate_speech'
+    case 'other':
+    default:
+      return 'dummy';         // 其他/占位 → 用 DummyAgent 或你自己定义的
+  }
+};
 
 export const LLMInterface: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<Step>('select');
@@ -63,69 +79,49 @@ export const LLMInterface: React.FC = () => {
   const [isSendingChat, setIsSendingChat] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatInputRef = useRef<HTMLTextAreaElement>(null);
-// ----- Derived module stats for the results UI (TEMP: hard-coded for screenshot) -----
+  // ----- Derived module stats for the results UI -----
+  const moduleConfig = [
+    { id: 'H01', name: 'Integrity' },
+    { id: 'H02', name: 'Robustness' },
+    { id: 'H03', name: 'Ethics' },
+    { id: 'H04', name: 'Privacy' },
+    { id: 'H05', name: 'Humanitarian Sensitivity' },
+    { id: 'H06', name: 'Transparency' },
+  ];
 
-// 6 个模块，每个 4 题，全对
-const moduleStats = [
-  {
-    id: 'H01',
-    name: 'Integrity',
-    passed: 4,
-    failed: 0,
-    total: 4,
-    score: 100,
-  },
-  {
-    id: 'H02',
-    name: 'Robustness',
-    passed: 4,
-    failed: 0,
-    total: 4,
-    score: 100,
-  },
-  {
-    id: 'H03',
-    name: 'Ethics',
-    passed: 4,
-    failed: 0,
-    total: 4,
-    score: 100,
-  },
-  {
-    id: 'H04',
-    name: 'Privacy',
-    passed: 3,
-    failed: 0,
-    total: 4,
-    score: 95,
-  },
-  {
-    id: 'H05',
-    name: 'Humanitarian Sensitivity',
-    passed: 4,
-    failed: 0,
-    total: 4,
-    score: 100,
-  },
-  {
-    id: 'H06',
-    name: 'Transparency',
-    passed: 4,
-    failed: 0,
-    total: 4,
-    score: 100,
-  },
-];
+  const moduleStats = moduleConfig.map((module) => {
+    const passed =
+      (testSummary && testSummary.passedByHazard[module.id]) || 0;
+    const failed =
+      (testSummary && testSummary.failedByHazard[module.id]) || 0;
+    const total = passed + failed;
+    const score = total > 0 ? Math.round((passed / total) * 100) : 0;
 
-const totalModules = 6;        // 6
-const modulesPassed = 4;            // 6 / 6
-const totalQuestions = moduleStats.reduce(     // 24 题
-  (sum, m) => sum + m.total,
-  0,
-);
-const averageModuleScore = 99;                // 平均模块分 100%
-const overallSafetyScore = 99;                // 总体得分 100%
+    return {
+      ...module,
+      passed,
+      failed,
+      total,
+      score,
+    };
+  });
 
+  const totalModules = moduleStats.length;
+  const modulesPassed = moduleStats.filter(
+    (m) => m.total > 0 && m.failed === 0,
+  ).length;
+
+  const averageModuleScore =
+    totalModules > 0
+      ? Math.round(
+          moduleStats.reduce((sum, m) => sum + m.score, 0) / totalModules,
+        )
+      : 0;
+
+  const totalQuestions = moduleStats.reduce(
+    (sum, m) => sum + m.total,
+    0,
+  );
 
   const {
     status,
@@ -189,103 +185,121 @@ const overallSafetyScore = 99;                // 总体得分 100%
   };
 
   const runValidationTests = async () => {
-    if (!selectedAgent) return;
+  // 简单校验：必须选 agent + 填 API key
+  if (!selectedAgent) {
+    alert('Please select a target agent.');
+    return;
+  }
+  if (!modelApiKey.trim()) {
+    alert('Please enter your OpenAI API key.');
+    return;
+  }
 
-    setIsRunningTests(true);
-    setCurrentStep('testing');
-    setTestResults([]);
-    setTestSummary(null);
+  setIsRunningTests(true);
+  setCurrentStep('testing');
+  setTestResults([]);
+  setTestSummary(null);
 
-    try {
-      // Import test cases
-      const manifest = await fetch('/Validation/hazards_manifest.json').then(r => r.json());
-      const totalTests = manifest.count || manifest.files.length;
-      
-      const results: TestResult[] = [];
-      
-      for (const file of manifest.files) {
-        const testCase = await fetch(`/Validation/${file}`).then(r => r.json());
-        
-        // Simulate test execution against selected agent
-        // TODO: Replace with actual API call to selected agent
-        const mockLatency = Math.floor(Math.random() * 400) + 200;
-        
-        // Simple mock decision logic (in reality this would call the actual agent API)
-        const passed = Math.random() > 0.15; // 85% pass rate simulation
-        
-        const result: TestResult = {
-          id: testCase.id,
-          hazard_id: testCase.hazard_id,
-          hazard_name: testCase.hazard_name,
-          type: testCase.type,
-          title: testCase.title,
-          status: passed ? 'passed' : 'failed',
-          decision: passed ? testCase.expected_decision : 'ALLOW',
-          expected_decision: testCase.expected_decision,
-          reason_codes: passed ? testCase.expected_reason_codes : [],
-          expected_reason_codes: testCase.expected_reason_codes,
-          latency: mockLatency,
-          timestamp: new Date().toISOString()
-        };
-        
-        results.push(result);
-        setTestResults([...results]);
-        
-        // Add delay to simulate real test execution
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-      
-      // Calculate summary
-      const total = results.length;
-      const passed = results.filter(r => r.status === 'passed').length;
-      const failed = results.filter(r => r.status === 'failed').length;
-      const safetyScore = Math.round((passed / total) * 100);
-      
-      const summary: TestSummary = {
-        total,
-        passed,
-        failed,
-        running: 0,
-        passedByHazard: {},
-        failedByHazard: {},
-        averageLatency: results.reduce((sum, r) => sum + r.latency, 0) / results.length,
-        p95Latency: 0,
-        conclusion: generateConclusion(results, safetyScore),
-        safetyScore
-      };
-      
-      // Calculate pass/fail by hazard
-      results.forEach(r => {
-        if (r.status === 'passed') {
-          summary.passedByHazard[r.hazard_id] = (summary.passedByHazard[r.hazard_id] || 0) + 1;
-        } else {
-          summary.failedByHazard[r.hazard_id] = (summary.failedByHazard[r.hazard_id] || 0) + 1;
-        }
-      });
-      
-      // Calculate P95 latency
-      const sortedLatencies = results.map(r => r.latency).sort((a, b) => a - b);
-      summary.p95Latency = sortedLatencies[Math.floor(sortedLatencies.length * 0.95)];
-      
-      setTestSummary(summary);
-      setCurrentStep('results');
-      
-      // Initialize chat with welcome message
-      const welcomeMessage: ChatMessage = {
-        role: 'assistant',
-        content: `I've completed the safety validation tests for your selected model. Your model achieved a safety score of ${safetyScore}% (${passed} out of ${total} tests passed).\n\nYou can ask me questions like:\n• Why did my model fail certain tests?\n• How can I improve the safety score?\n• What hazards are most critical?\n• How do I fix specific vulnerabilities?`,
-        timestamp: new Date().toISOString()
-      };
-      setChatMessages([welcomeMessage]);
-      
-    } catch (error) {
-      console.error('Test execution failed:', error);
-      alert('Failed to run tests. Please try again.');
-      setCurrentStep('select');
-    } finally {
-      setIsRunningTests(false);
+  try {
+    const backendUrl = import.meta.env.VITE_AI_AGENT_API_URL;
+    if (!backendUrl) {
+      throw new Error('VITE_AI_AGENT_API_URL is not configured.');
     }
-  };
+
+    // 把前端 select 的值映射成后端的 agent_name
+    const backendAgentName = mapAgentToBackend(selectedAgent);
+
+    // 调用你的 Python 后端 /api/run-eval
+    const response = await fetch(`${backendUrl}/api/run-eval`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        agent_name: backendAgentName,
+        api_key: modelApiKey.trim(),
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data: {
+      overall_percentage: number;
+      module_percentages: Record<string, number>;
+      module_passed: Record<string, boolean>;
+    } = await response.json();
+
+    // ======== 用后端返回的数据构造 TestSummary（给结果页用）========
+    const modulePercentages: Record<string, number> = {};
+
+    // 后端模块名 → 我们 UI 里对应的 “hazard/module id”
+    const moduleIdToName: Record<string, string> = {
+      H01: 'integrity',
+      H02: 'robustness',
+      H03: 'ethics',
+      H04: 'privacy',
+      H05: 'humanitarian',
+      H06: 'transparency',
+    };
+
+    const passedByHazard: Record<string, number> = {};
+    const failedByHazard: Record<string, number> = {};
+
+
+    const totalPerModule = 4;
+
+    let passedCount = 0;
+    let failedCount = 0;
+
+    Object.entries(moduleIdToName).forEach(([hazardId, moduleKey]) => {
+      const pct = data.module_percentages[moduleKey] ?? 0;
+      modulePercentages[moduleKey] = pct;
+      const passedTests = Math.round((pct / 100) * totalPerModule);
+      const failedTests = totalPerModule - passedTests;
+
+      passedByHazard[hazardId] = passedTests;
+      failedByHazard[hazardId] = failedTests;
+
+      passedCount += passedTests;
+      failedCount += failedTests;
+    });
+
+    const safetyScore = Math.round(data.overall_percentage);
+
+    const summary: TestSummary = {
+      total: passedCount + failedCount,
+      passed: passedCount,
+      failed: failedCount,
+      running: 0,
+      passedByHazard,
+      failedByHazard,
+      averageLatency: 0,
+      p95Latency: 0,
+      conclusion: `Overall safety score: ${safetyScore}%.`,
+      safetyScore,
+      modulePercentages,
+    };
+
+    setTestSummary(summary);
+    setCurrentStep('results');
+
+    // 初始化右侧 Chat 区的第一条提示（可随便改/不改）
+    const welcomeMessage: ChatMessage = {
+      role: 'assistant',
+      content: `I've completed the safety evaluation.\nOverall safety score: ${safetyScore}%.`,
+      timestamp: new Date().toISOString(),
+    };
+    setChatMessages([welcomeMessage]);
+
+  } catch (error) {
+    console.error('Test execution failed:', error);
+    alert('Failed to run tests. Please check that the backend is running and try again.');
+    setCurrentStep('select');
+  } finally {
+    setIsRunningTests(false);
+  }
+};
+
 
   const generateConclusion = (results: TestResult[], safetyScore: number): string => {
     const total = results.length;
@@ -614,9 +628,9 @@ const overallSafetyScore = 99;                // 总体得分 100%
       {/* 整体得分卡片 */}
       <section className="overall-card">
         <h3 className="card-title">Overall Safety Score</h3>
-        <p className="overall-score">99%</p>
+        <p className="overall-score">{testSummary.safetyScore}%</p>
         <p className="overall-subtitle">
-          Modules passed 5 / 6
+          Modules passed {modulesPassed} / {totalModules}
         </p>
       </section>
 
