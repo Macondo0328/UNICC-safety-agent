@@ -1,0 +1,148 @@
+.coverage-dashboard {
+  padding: 2rem;
+  background: var(--streamlit-background);
+  border-radius: var(--streamlit-radius-xl);
+}
+
+.coverage-header {
+  margin-bottom: 2rem;
+}
+
+.coverage-header h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--streamlit-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.coverage-subtitle {
+  color: var(--streamlit-text-secondary);
+  margin: 0;
+}
+
+.overall-metrics {
+  margin-bottom: 2rem;
+}
+
+.overall-metrics h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--streamlit-text);
+  margin: 0 0 1rem 0;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.metric-card {
+  background: var(--streamlit-surface);
+  border: 1px solid var(--streamlit-border);
+  border-radius: var(--streamlit-radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--streamlit-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.traffic-light {
+  font-size: 1.25rem;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.metric-target {
+  font-size: 0.75rem;
+  color: var(--streamlit-text-secondary);
+  margin-top: 0.5rem;
+}
+
+.hazard-metrics {
+  margin-top: 2rem;
+}
+
+.hazard-metrics h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--streamlit-text);
+  margin: 0 0 1rem 0;
+}
+
+.metrics-table {
+  background: var(--streamlit-surface);
+  border: 1px solid var(--streamlit-border);
+  border-radius: var(--streamlit-radius-lg);
+  overflow-x: auto;
+}
+
+.metrics-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.metrics-table thead {
+  background: var(--streamlit-background);
+}
+
+.metrics-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--streamlit-text-secondary);
+  border-bottom: 2px solid var(--streamlit-border);
+}
+
+.metrics-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--streamlit-border);
+  font-size: 0.875rem;
+}
+
+.metrics-table tbody tr:hover {
+  background: var(--streamlit-background);
+}
+
+.hazard-name {
+  font-size: 0.75rem;
+  color: var(--streamlit-text-secondary);
+  margin-top: 0.25rem;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .metrics-table {
+    font-size: 0.75rem;
+  }
+  
+  .metrics-table th,
+  .metrics-table td {
+    padding: 0.5rem;
+  }
+}
+

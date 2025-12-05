@@ -1,0 +1,180 @@
+{
+  "generated_at": "2025-11-12T19:09:57.400Z",
+  "entries": {
+    "H01": {
+      "hazard_id": "H01",
+      "hazard_name": "Prompt/Indirect Injection",
+      "default_decision": "BLOCK",
+      "zero_tolerance": true,
+      "targets": {
+        "recall_min": 0.9,
+        "precision_min": 0.9
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑SEC‑001",
+        "FR‑AUTHZ‑002",
+        "FR‑LOG‑001"
+      ],
+      "owasp_ref": "LLM01:2025 Prompt Injection",
+      "policy_ref": "UN human rights; UNESCO oversight"
+    },
+    "H02": {
+      "hazard_id": "H02",
+      "hazard_name": "Improper Output Handling",
+      "default_decision": "REVIEW + SANITIZE",
+      "zero_tolerance": false,
+      "targets": {
+        "recall_min": 0.9,
+        "precision_min": 0.9
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑INT‑003",
+        "FR‑SEC‑004",
+        "FR‑LOG‑001"
+      ],
+      "owasp_ref": "LLM05 Improper Output Handling*",
+      "policy_ref": "UNESCO transparency & privacy"
+    },
+    "H03": {
+      "hazard_id": "H03",
+      "hazard_name": "Sensitive Info Disclosure / PII",
+      "default_decision": "BLOCK (or SANITIZE+REVIEW)",
+      "zero_tolerance": true,
+      "targets": {
+        "recall_min": 0.95,
+        "precision_min": 0.95
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑PRIV‑001",
+        "FR‑DATA‑002",
+        "FR‑LOG‑001"
+      ],
+      "owasp_ref": "LLM02:2025 Sensitive Info Disclosure",
+      "policy_ref": "UNESCO privacy; UN rights"
+    },
+    "H04": {
+      "hazard_id": "H04",
+      "hazard_name": "Hate / Harassment / Incitement",
+      "default_decision": "BLOCK",
+      "zero_tolerance": true,
+      "targets": {
+        "recall_min": 0.9,
+        "precision_min": 0.9
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑HUM‑001",
+        "FR‑SEC‑005"
+      ],
+      "owasp_ref": "UN/UNESCO content safety",
+      "policy_ref": "UN Charter Art.1(3)"
+    },
+    "H05": {
+      "hazard_id": "H05",
+      "hazard_name": "Self‑harm / Violence Solicitation",
+      "default_decision": "BLOCK",
+      "zero_tolerance": true,
+      "targets": {
+        "recall_min": 0.95,
+        "precision_min": 0.95
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑HUM‑002",
+        "FR‑UX‑001"
+      ],
+      "owasp_ref": "UN/UNESCO content safety",
+      "policy_ref": "UN dignity & safety"
+    },
+    "H06": {
+      "hazard_id": "H06",
+      "hazard_name": "Misinformation / Fabricated Citations",
+      "default_decision": "REVIEW (auto fact‑check)",
+      "zero_tolerance": false,
+      "targets": {
+        "recall_min": 0.9,
+        "precision_min": 0.9
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑FACT‑001",
+        "FR‑TRACE‑001",
+        "FR‑LOG‑001"
+      ],
+      "owasp_ref": "LLM09:2025 Misinformation",
+      "policy_ref": "Integrity & transparency"
+    },
+    "H07": {
+      "hazard_id": "H07",
+      "hazard_name": "System Prompt Leakage",
+      "default_decision": "BLOCK",
+      "zero_tolerance": true,
+      "targets": {
+        "recall_min": 0.95,
+        "precision_min": 0.95
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑CONF‑001",
+        "FR‑SEC‑006"
+      ],
+      "owasp_ref": "LLM07:2025 System Prompt Leakage",
+      "policy_ref": "Accountability & privacy"
+    },
+    "H08": {
+      "hazard_id": "H08",
+      "hazard_name": "Unbounded Consumption / DoS",
+      "default_decision": "REVIEW (rate‑limit/queue)",
+      "zero_tolerance": false,
+      "targets": {
+        "recall_min": 0.9,
+        "precision_min": 0.9
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑PERF‑001",
+        "FR‑RES‑001",
+        "FR‑COST‑001"
+      ],
+      "owasp_ref": "LLM10:2025 Unbounded Consumption*",
+      "policy_ref": "Environment & resilience"
+    },
+    "H09": {
+      "hazard_id": "H09",
+      "hazard_name": "Excessive Agency / Unsafe Autonomy",
+      "default_decision": "REVIEW",
+      "zero_tolerance": false,
+      "targets": {
+        "recall_min": 0.9,
+        "precision_min": 0.9
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑AUTHZ‑003",
+        "FR‑UX‑002"
+      ],
+      "owasp_ref": "LLM08:2025 Excessive Agency",
+      "policy_ref": "Human oversight"
+    },
+    "H10": {
+      "hazard_id": "H10",
+      "hazard_name": "Supply‑Chain / Plugin & Integration Risks",
+      "default_decision": "REVIEW (BLOCK if critical)",
+      "zero_tolerance": false,
+      "targets": {
+        "recall_min": 0.9,
+        "precision_min": 0.9
+      },
+      "perf_slo_p95_ms": 900,
+      "linked_requirements": [
+        "FR‑SCM‑001",
+        "FR‑SEC‑007"
+      ],
+      "owasp_ref": "LLM05/LLM07 variants (see note)",
+      "policy_ref": "Governance & logging"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+.risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  border: 2px solid;
+}
+
+.risk-badge-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.risk-badge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.risk-badge-level {
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.05em;
+}
+
+.risk-badge-confidence {
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.risk-badge-low {
+  background-color: rgba(22, 163, 74, 0.1);
+  border-color: var(--color-risk-low);
+  color: var(--color-risk-low);
+}
+
+.risk-badge-medium {
+  background-color: rgba(234, 88, 12, 0.1);
+  border-color: var(--color-risk-medium);
+  color: var(--color-risk-medium);
+}
+
+.risk-badge-high {
+  background-color: rgba(220, 38, 38, 0.1);
+  border-color: var(--color-risk-high);
+  color: var(--color-risk-high);
+}
+
+.risk-badge-critical {
+  background-color: rgba(153, 27, 27, 0.15);
+  border-color: var(--color-risk-critical);
+  color: var(--color-risk-critical);
+  animation: pulse-critical 2s infinite;
+}
+
+@keyframes pulse-critical {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+

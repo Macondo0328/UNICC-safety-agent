@@ -1,0 +1,39 @@
+/* Safety Review Queue Styles */
+.safety-review-queue {
+  display: flex;
+  height: calc(100vh - 120px);
+  background-color: #ffffff;
+}
+
+.case-queue-panel {
+  border-right: 1px solid #e2e8f0;
+  min-width: 400px;
+  max-width: 500px;
+}
+
+.review-workspace-panel {
+  flex: 1;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .safety-review-queue {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .case-queue-panel {
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  .review-workspace-panel {
+    min-height: 400px;
+  }
+}
+
+
+
+

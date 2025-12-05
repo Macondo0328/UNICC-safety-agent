@@ -1,0 +1,165 @@
+{
+  "info": {
+    "name": "UNICC AI Safety Reviewer API (MVP)",
+    "_postman_id": "6b7d9a4a-8b49-4b19-9f23-0b9e7e6f1e2c",
+    "description": "Minimal collection for Safety Reviewer endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Review",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Idempotency-Key",
+            "value": "{{idempotency_key}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"input\": \"Please summarize this web page safely.\",\n  \"context\": {\"channel\": \"ui\", \"locale\": \"en-US\"}\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/review",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "review"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Review",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/v1/review/{{review_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "review",
+            "{{review_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Hazards",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/v1/policy/hazards?include_decisions=true",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "policy",
+            "hazards"
+          ],
+          "query": [
+            {
+              "key": "include_decisions",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Evidence (ZIP)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/zip"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/v1/evidence/{{review_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "evidence",
+            "{{review_id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.unicc-safety.example"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "review_id",
+      "value": ""
+    },
+    {
+      "key": "idempotency_key",
+      "value": ""
+    }
+  ]
+}

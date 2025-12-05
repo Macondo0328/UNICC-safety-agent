@@ -1,0 +1,130 @@
+.safety-flags {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.safety-flags-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.safety-flags-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 var(--spacing-xs);
+  background-color: var(--color-error);
+  color: white;
+  border-radius: 12px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.safety-flags-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.safety-flag {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-left: 4px solid;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-bg);
+}
+
+.safety-flag-info {
+  border-left-color: var(--color-info);
+  background-color: rgba(8, 145, 178, 0.05);
+}
+
+.safety-flag-warning {
+  border-left-color: var(--color-warning);
+  background-color: rgba(234, 88, 12, 0.05);
+}
+
+.safety-flag-error {
+  border-left-color: var(--color-error);
+  background-color: rgba(220, 38, 38, 0.05);
+}
+
+.safety-flag-critical {
+  border-left-color: var(--color-risk-critical);
+  background-color: rgba(153, 27, 27, 0.1);
+}
+
+.safety-flag-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.safety-flag-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.safety-flag-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+  gap: var(--spacing-sm);
+}
+
+.safety-flag-type {
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--color-text);
+}
+
+.safety-flag-severity {
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.safety-flag-info .safety-flag-severity {
+  background-color: var(--color-info);
+  color: white;
+}
+
+.safety-flag-warning .safety-flag-severity {
+  background-color: var(--color-warning);
+  color: white;
+}
+
+.safety-flag-error .safety-flag-severity,
+.safety-flag-critical .safety-flag-severity {
+  background-color: var(--color-error);
+  color: white;
+}
+
+.safety-flag-message {
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.5;
+}
+
+.safety-flag-details {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+

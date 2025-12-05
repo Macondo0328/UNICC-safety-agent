@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+@layer base {
+    :root {
+        --background: 240 10% 98%; /* 高亮灰蓝基底 */
+        --foreground: 240 50% 12%; /* 深紫灰文字 */
+        --card: 0 0% 100%;
+        --card-foreground: 240 50% 12%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 50% 12%;
+        --primary: 295 100% 65%; /* ⚡ 电紫光 */
+        --primary-foreground: 0 0% 100%;
+        --secondary: 200 100% 60%; /* 🧊 霓虹蓝绿 */
+        --secondary-foreground: 0 0% 100%;
+        --muted: 240 15% 95%;
+        --muted-foreground: 240 10% 35%;
+        --accent: 40 100% 65%; /* 🧡 电橙 · 热辣调性 */
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 100% 55%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 270 30% 80%;
+        --input: 270 30% 88%;
+        --ring: 295 100% 60%;
+        --radius: 0.8rem;
+      
+        --chart-1: 295 100% 65%;
+        --chart-2: 190 100% 55%;
+        --chart-3: 50 100% 65%;
+        --chart-4: 340 100% 65%;
+        --chart-5: 120 100% 50%;
+      
+        --sidebar-background: 240 15% 98%;
+        --sidebar-foreground: 240 50% 12%;
+        --sidebar-primary: 295 100% 65%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 200 100% 60%;
+        --sidebar-accent-foreground: 0 0% 100%;
+        --sidebar-border: 270 30% 85%;
+        --sidebar-ring: 295 100% 60%;
+      }
+      
+      .dark {
+        --background: 250 50% 5%;         /* 静电夜黑底 */
+        --foreground: 0 0% 100%;          /* 全亮文字 */
+        --card: 250 30% 10%;
+        --card-foreground: 0 0% 100%;
+        --popover: 250 30% 10%;
+        --popover-foreground: 0 0% 100%;
+        --primary: 295 100% 65%;          /* ⚡ 紫霓电感 */
+        --primary-foreground: 0 0% 100%;
+        --secondary: 200 100% 60%;        /* 🧊 冷调撞色 */
+        --secondary-foreground: 0 0% 100%;
+        --muted: 250 20% 15%;
+        --muted-foreground: 0 0% 80%;
+        --accent: 40 100% 65%;            /* 🧡 热浪橙光 */
+        --accent-foreground: 0 0% 100%;
+        --destructive: 0 100% 55%;
+        --destructive-foreground: 0 0% 100%;
+        --border: 240 20% 30%;
+        --input: 240 20% 25%;
+        --ring: 295 100% 65%;
+        --radius: 0.8rem;
+      
+        --chart-1: 295 100% 65%;
+        --chart-2: 200 100% 60%;
+        --chart-3: 40 100% 65%;
+        --chart-4: 330 90% 65%;
+        --chart-5: 120 100% 50%;
+      
+        --sidebar-background: 250 40% 8%;
+        --sidebar-foreground: 0 0% 100%;
+        --sidebar-primary: 295 100% 65%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 200 100% 60%;
+        --sidebar-accent-foreground: 0 0% 100%;
+        --sidebar-border: 240 20% 25%;
+        --sidebar-ring: 295 100% 65%;
+      }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+.skeleton {
+    * {
+        pointer-events: none !important;
+    }
+
+    *[class^="text-"] {
+        color: transparent;
+        @apply rounded-md bg-foreground/20 select-none animate-pulse;
+    }
+
+    .skeleton-bg {
+        @apply bg-foreground/10;
+    }
+
+    .skeleton-div {
+        @apply bg-foreground/20 animate-pulse;
+    }
+}
+
+.ProseMirror {
+    outline: none;
+}
+
+.cm-editor,
+.cm-gutters {
+    @apply bg-background dark:bg-zinc-800 outline-none selection:bg-zinc-900 !important;
+}
+
+.ͼo.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground,
+.ͼo.cm-selectionBackground,
+.ͼo.cm-content::selection {
+    @apply bg-zinc-200 dark:bg-zinc-900 !important;
+}
+
+.cm-activeLine,
+.cm-activeLineGutter {
+    @apply bg-transparent !important;
+}
+
+.cm-activeLine {
+    @apply rounded-r-sm !important;
+}
+
+.cm-lineNumbers {
+    @apply min-w-7;
+}
+
+.cm-foldGutter {
+    @apply min-w-3;
+}
+
+.cm-lineNumbers .cm-activeLineGutter {
+    @apply rounded-l-sm !important;
+}
+
+.suggestion-highlight {
+    @apply bg-blue-200 hover:bg-blue-300 dark:hover:bg-blue-400/50 dark:text-blue-50 dark:bg-blue-500/40;
+}

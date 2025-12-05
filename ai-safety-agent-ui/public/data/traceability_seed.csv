@@ -1,0 +1,25 @@
+requirement_id,requirement_name,hazard_id,hazard_name,test_id,test_title,evidence_file
+FR-SEC-001,Security requirement for prompt injection prevention,H01,Prompt/Indirect Injection,TC-H01-POS-001,Direct prompt injection attempts tool abuse,exports/test-TC-H01-POS-001.json
+FR-SEC-001,Security requirement for prompt injection prevention,H01,Prompt/Indirect Injection,TC-H01-POS-002,Roleplay-based prompt injection,exports/test-TC-H01-POS-002.json
+FR-SEC-001,Security requirement for prompt injection prevention,H01,Prompt/Indirect Injection,TC-H01-POS-003,Roleplay-based prompt injection with tool abuse,exports/test-TC-H01-POS-003.json
+FR-SEC-001,Security requirement for prompt injection prevention,H01,Prompt/Indirect Injection,TC-H01-POS-004,Disregard instructions with database access attempt,exports/test-TC-H01-POS-004.json
+FR-INT-003,Integration requirement for output handling,H02,Improper Output Handling,TC-H02-POS-001,Executable script should be neutralized,exports/test-TC-H02-POS-001.json
+FR-INT-003,Integration requirement for output handling,H02,Improper Output Handling,TC-H02-POS-002,HTML injection prevention,exports/test-TC-H02-POS-002.json
+FR-INT-003,Integration requirement for output handling,H02,Improper Output Handling,TC-H02-POS-003,JavaScript event handler injection,exports/test-TC-H02-POS-003.json
+FR-INT-003,Integration requirement for output handling,H02,Improper Output Handling,TC-H02-POS-004,Eval function in output,exports/test-TC-H02-POS-004.json
+FR-PRIV-001,Privacy requirement for PII protection,H03,Sensitive Info Disclosure / PII,TC-H03-POS-001,Synthetic PII should trigger block,exports/test-TC-H03-POS-001.json
+FR-PRIV-001,Privacy requirement for PII protection,H03,Sensitive Info Disclosure / PII,TC-H03-POS-002,Credit card number in input,exports/test-TC-H03-POS-002.json
+FR-PRIV-001,Privacy requirement for PII protection,H03,Sensitive Info Disclosure / PII,TC-H03-POS-003,Email and phone number combination,exports/test-TC-H03-POS-003.json
+FR-HUM-001,Human rights requirement for hate speech prevention,H04,Hate / Harassment / Incitement,TC-H04-POS-001,Harassment/incitement should be blocked,exports/test-TC-H04-POS-001.json
+FR-HUM-001,Human rights requirement for hate speech prevention,H04,Hate / Harassment / Incitement,TC-H04-POS-002,Discriminatory content request,exports/test-TC-H04-POS-002.json
+FR-HUM-002,Human safety requirement for violence prevention,H05,Self-harm / Violence Solicitation,TC-H05-POS-001,Self-harm solicitation should be blocked,exports/test-TC-H05-POS-001.json
+FR-HUM-002,Human safety requirement for violence prevention,H05,Self-harm / Violence Solicitation,TC-H05-POS-002,Violence instruction request,exports/test-TC-H05-POS-002.json
+FR-INT-001,Integrity requirement for misinformation detection,H06,Misinformation / Fabricated Citations,TC-H06-POS-001,Conspiracy theory content,exports/test-TC-H06-POS-001.json
+FR-INT-001,Integrity requirement for misinformation detection,H06,Misinformation / Fabricated Citations,TC-H06-POS-002,Medical misinformation claim,exports/test-TC-H06-POS-002.json
+FR-INT-001,Integrity requirement for misinformation detection,H06,Misinformation / Fabricated Citations,TC-H06-POS-003,Historical revisionism claim,exports/test-TC-H06-POS-003.json
+FR-CONF-001,Confidentiality requirement for prompt leakage prevention,H07,System Prompt Leakage,TC-H07-POS-001,System prompt leakage attempt,exports/test-TC-H07-POS-001.json
+FR-CONF-001,Confidentiality requirement for prompt leakage prevention,H07,System Prompt Leakage,TC-H07-POS-002,Internal instructions disclosure request,exports/test-TC-H07-POS-002.json
+FR-PERF-001,Performance requirement for resource management,H08,Unbounded Consumption / DoS,TC-H08-POS-001,Token flood / resource abuse,exports/test-TC-H08-POS-001.json
+FR-PERF-001,Performance requirement for resource management,H08,Unbounded Consumption / DoS,TC-H08-POS-002,Infinite generation request,exports/test-TC-H08-POS-002.json
+FR-PERF-001,Performance requirement for resource management,H08,Unbounded Consumption / DoS,TC-H08-POS-003,Extremely long text generation request,exports/test-TC-H08-POS-003.json
+

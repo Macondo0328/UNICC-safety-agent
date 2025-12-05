@@ -1,0 +1,371 @@
+{
+  "generated_at": "2025-11-12T19:09:57.913Z",
+  "tags": [
+    {
+      "policy_source": "UN Charter",
+      "clause_principle": "Art. 1(3) – promote and encourage respect for human rights and fundamental freedoms",
+      "nist_function": "**GOVERN**",
+      "nist_outcome": "policies, processes, roles embed human rights commitments; **MANAGE**",
+      "eu_ai_act_tier": "**GPAI transparency** (model & output disclosures); **High‑risk controls** where applicable (risk mgmt, data governance, human oversight, logging, robustness/cybersecurity)",
+      "example_hazard": "Hate/incitement targeting protected groups",
+      "decision_code": "BLOCK",
+      "hazard_ids": [
+        "H04"
+      ]
+    },
+    {
+      "policy_source": "UN Charter",
+      "clause_principle": "Art. 2(3)–(4) – peaceful settlement; refrain from threat or use of force",
+      "nist_function": "**GOVERN**",
+      "nist_outcome": "organizational policies prohibit violence advocacy; **MANAGE**",
+      "eu_ai_act_tier": "**Prohibited practices / illegal content alignment**; **GPAI transparency**",
+      "example_hazard": "“How to make a bomb”/violence facilitation",
+      "decision_code": "BLOCK",
+      "hazard_ids": [
+        "H05"
+      ]
+    },
+    {
+      "policy_source": "UNESCO AI Ethics (2021)",
+      "clause_principle": "Human dignity & human rights",
+      "nist_function": "**MAP**",
+      "nist_outcome": "affected populations & rights impacts documented; **MEASURE**",
+      "eu_ai_act_tier": "**High‑risk**: risk mgmt + technical docs + human oversight + accuracy/robustness; **GPAI transparency**",
+      "example_hazard": "Exposure of sensitive personal data (PII/health/child data)",
+      "decision_code": "SANITIZE",
+      "hazard_ids": [
+        "H03"
+      ]
+    },
+    {
+      "policy_source": "UNESCO AI Ethics (2021)",
+      "clause_principle": "Fairness & non‑discrimination",
+      "nist_function": "**MAP**",
+      "nist_outcome": "context & intended purpose incl. bias contexts; **MEASURE**",
+      "eu_ai_act_tier": "**High‑risk** (e.g., employment, credit, education): data governance, risk mgmt, human oversight, logging, accuracy/robustness",
+      "example_hazard": "Discriminatory scoring in hiring or credit",
+      "decision_code": "REVIEW (block deployment until bias mitigations)",
+      "hazard_ids": [
+        "H04"
+      ]
+    },
+    {
+      "policy_source": "UNESCO AI Ethics (2021)",
+      "clause_principle": "Human oversight & accountability",
+      "nist_function": "**MANAGE**",
+      "nist_outcome": "human‑in‑the‑loop/approval for high‑impact actions; **GOVERN**",
+      "eu_ai_act_tier": "**High‑risk**: effective human oversight; **Post‑market monitoring**",
+      "example_hazard": "Fully automated adverse decision with no effective oversight",
+      "decision_code": "REVIEW",
+      "hazard_ids": [
+        "H09"
+      ]
+    },
+    {
+      "policy_source": "UNESCO AI Ethics (2021)",
+      "clause_principle": "Privacy & data governance",
+      "nist_function": "**GOVERN**",
+      "nist_outcome": "data policies and role‑based access; **MEASURE**",
+      "eu_ai_act_tier": "**High‑risk**: data governance, logging; **GPAI**: training data transparency",
+      "example_hazard": "Output contains names + contact details scraped from untrusted sources",
+      "decision_code": "DE‑IDENTIFY+REVIEW",
+      "hazard_ids": [
+        "H03"
+      ]
+    },
+    {
+      "policy_source": "UNESCO AI Ethics (2021)",
+      "clause_principle": "Transparency & explainability",
+      "nist_function": "**MAP**",
+      "nist_outcome": "document intended use, limitations, known unknowns; **MEASURE**",
+      "eu_ai_act_tier": "**User transparency** (instructions, disclosures); **High‑risk**: technical documentation & instructions for use",
+      "example_hazard": "Opaque recommendation affecting benefits eligibility",
+      "decision_code": "REVIEW",
+      "hazard_ids": [
+        "H06"
+      ]
+    },
+    {
+      "policy_source": "UNESCO AI Ethics (2021)",
+      "clause_principle": "Environment & ecosystem",
+      "nist_function": "**GOVERN**",
+      "nist_outcome": "sustainability objectives; **MEASURE**",
+      "eu_ai_act_tier": "**Provider duties** to mitigate systemic risk (for powerful GPAI); risk mgmt for high‑risk",
+      "example_hazard": "Excessive compute without mitigation; unsafe degradation under stress",
+      "decision_code": "REVIEW",
+      "hazard_ids": [
+        "H08"
+      ]
+    },
+    {
+      "policy_source": "UN Core Values",
+      "clause_principle": "Integrity (truthfulness; avoid deception)",
+      "nist_function": "**MEASURE**",
+      "nist_outcome": "groundedness/factuality checks; **MANAGE**",
+      "eu_ai_act_tier": "**GPAI transparency**; **High‑risk**: record‑keeping & logging obligations",
+      "example_hazard": "Fabricated citations / misinformation",
+      "decision_code": "REVIEW",
+      "hazard_ids": [
+        "H06"
+      ]
+    },
+    {
+      "policy_source": "OWASP LLM Top‑10 (2025)",
+      "clause_principle": "Prompt Injection",
+      "nist_function": "**MEASURE**",
+      "nist_outcome": "adversarial testing; **MANAGE**",
+      "eu_ai_act_tier": "**GPAI**: model evals/adversarial testing; **High‑risk**: robustness & cybersecurity",
+      "example_hazard": "Untrusted page injects instructions to exfiltrate data",
+      "decision_code": "BLOCK (on tool call)",
+      "hazard_ids": [
+        "H01"
+      ]
+    },
+    {
+      "policy_source": "OWASP LLM Top‑10 (2025)",
+      "clause_principle": "Improper Output Handling",
+      "nist_function": "**MANAGE**",
+      "nist_outcome": "output validation & sanitization gates; **GOVERN**",
+      "eu_ai_act_tier": "**Provider/User duties** to ensure safe integration; **High‑risk**: logging, cybersecurity",
+      "example_hazard": "LLM returns HTML/JS executed downstream (XSS/RCE)",
+      "decision_code": "SANITIZE",
+      "hazard_ids": [
+        "H02"
+      ]
+    },
+    {
+      "policy_source": "UN Charter / UNESCO",
+      "clause_principle": "Non‑discrimination; equality",
+      "nist_function": "**MAP**",
+      "nist_outcome": "stakeholder engagement incl. vulnerable groups; **MEASURE**",
+      "eu_ai_act_tier": "**High‑risk**: employment/credit/education obligations; **GPAI** transparency",
+      "example_hazard": "Targeted harassment/dehumanization of protected groups",
+      "decision_code": "BLOCK",
+      "hazard_ids": [
+        "H04"
+      ]
+    },
+    {
+      "policy_source": "UNESCO / Child protection focus",
+      "clause_principle": "Protect children’s rights & well‑being",
+      "nist_function": "**GOVERN**",
+      "nist_outcome": "age‑appropriate policies; **MANAGE**",
+      "eu_ai_act_tier": "**High‑risk** if impacting children; **GPAI**: safety disclosures",
+      "example_hazard": "Requests for minors’ PII; content sexualizing minors",
+      "decision_code": "BLOCK",
+      "hazard_ids": []
+    },
+    {
+      "policy_source": "UN Charter / Accountability",
+      "clause_principle": "Rule of law; justice",
+      "nist_function": "**GOVERN**",
+      "nist_outcome": "logging, traceability, auditability; **MANAGE**",
+      "eu_ai_act_tier": "**High‑risk**: logging/traceability & post‑market monitoring; incident reporting",
+      "example_hazard": "Missing logs/trace IDs for adverse decisions",
+      "decision_code": "REVIEW (hold until instrumented)",
+      "hazard_ids": [
+        "H07"
+      ]
+    },
+    {
+      "policy_source": "UN Charter / UNESCO",
+      "clause_principle": "Respect for cultural diversity",
+      "nist_function": "**MAP**",
+      "nist_outcome": "context & localization documented; **MEASURE**",
+      "eu_ai_act_tier": "**High‑risk**: instructions for use & risk mgmt cover localization",
+      "example_hazard": "Harmful stereotypes in localized outputs",
+      "decision_code": "REVIEW",
+      "hazard_ids": [
+        "H04"
+      ]
+    }
+  ],
+  "by_hazard": {
+    "H04": [
+      {
+        "policy_source": "UN Charter",
+        "clause_principle": "Art. 1(3) – promote and encourage respect for human rights and fundamental freedoms",
+        "nist_function": "**GOVERN**",
+        "nist_outcome": "policies, processes, roles embed human rights commitments; **MANAGE**",
+        "eu_ai_act_tier": "**GPAI transparency** (model & output disclosures); **High‑risk controls** where applicable (risk mgmt, data governance, human oversight, logging, robustness/cybersecurity)",
+        "example_hazard": "Hate/incitement targeting protected groups",
+        "decision_code": "BLOCK",
+        "hazard_ids": [
+          "H04"
+        ]
+      },
+      {
+        "policy_source": "UNESCO AI Ethics (2021)",
+        "clause_principle": "Fairness & non‑discrimination",
+        "nist_function": "**MAP**",
+        "nist_outcome": "context & intended purpose incl. bias contexts; **MEASURE**",
+        "eu_ai_act_tier": "**High‑risk** (e.g., employment, credit, education): data governance, risk mgmt, human oversight, logging, accuracy/robustness",
+        "example_hazard": "Discriminatory scoring in hiring or credit",
+        "decision_code": "REVIEW (block deployment until bias mitigations)",
+        "hazard_ids": [
+          "H04"
+        ]
+      },
+      {
+        "policy_source": "UN Charter / UNESCO",
+        "clause_principle": "Non‑discrimination; equality",
+        "nist_function": "**MAP**",
+        "nist_outcome": "stakeholder engagement incl. vulnerable groups; **MEASURE**",
+        "eu_ai_act_tier": "**High‑risk**: employment/credit/education obligations; **GPAI** transparency",
+        "example_hazard": "Targeted harassment/dehumanization of protected groups",
+        "decision_code": "BLOCK",
+        "hazard_ids": [
+          "H04"
+        ]
+      },
+      {
+        "policy_source": "UN Charter / UNESCO",
+        "clause_principle": "Respect for cultural diversity",
+        "nist_function": "**MAP**",
+        "nist_outcome": "context & localization documented; **MEASURE**",
+        "eu_ai_act_tier": "**High‑risk**: instructions for use & risk mgmt cover localization",
+        "example_hazard": "Harmful stereotypes in localized outputs",
+        "decision_code": "REVIEW",
+        "hazard_ids": [
+          "H04"
+        ]
+      }
+    ],
+    "H05": [
+      {
+        "policy_source": "UN Charter",
+        "clause_principle": "Art. 2(3)–(4) – peaceful settlement; refrain from threat or use of force",
+        "nist_function": "**GOVERN**",
+        "nist_outcome": "organizational policies prohibit violence advocacy; **MANAGE**",
+        "eu_ai_act_tier": "**Prohibited practices / illegal content alignment**; **GPAI transparency**",
+        "example_hazard": "“How to make a bomb”/violence facilitation",
+        "decision_code": "BLOCK",
+        "hazard_ids": [
+          "H05"
+        ]
+      }
+    ],
+    "H03": [
+      {
+        "policy_source": "UNESCO AI Ethics (2021)",
+        "clause_principle": "Human dignity & human rights",
+        "nist_function": "**MAP**",
+        "nist_outcome": "affected populations & rights impacts documented; **MEASURE**",
+        "eu_ai_act_tier": "**High‑risk**: risk mgmt + technical docs + human oversight + accuracy/robustness; **GPAI transparency**",
+        "example_hazard": "Exposure of sensitive personal data (PII/health/child data)",
+        "decision_code": "SANITIZE",
+        "hazard_ids": [
+          "H03"
+        ]
+      },
+      {
+        "policy_source": "UNESCO AI Ethics (2021)",
+        "clause_principle": "Privacy & data governance",
+        "nist_function": "**GOVERN**",
+        "nist_outcome": "data policies and role‑based access; **MEASURE**",
+        "eu_ai_act_tier": "**High‑risk**: data governance, logging; **GPAI**: training data transparency",
+        "example_hazard": "Output contains names + contact details scraped from untrusted sources",
+        "decision_code": "DE‑IDENTIFY+REVIEW",
+        "hazard_ids": [
+          "H03"
+        ]
+      }
+    ],
+    "H09": [
+      {
+        "policy_source": "UNESCO AI Ethics (2021)",
+        "clause_principle": "Human oversight & accountability",
+        "nist_function": "**MANAGE**",
+        "nist_outcome": "human‑in‑the‑loop/approval for high‑impact actions; **GOVERN**",
+        "eu_ai_act_tier": "**High‑risk**: effective human oversight; **Post‑market monitoring**",
+        "example_hazard": "Fully automated adverse decision with no effective oversight",
+        "decision_code": "REVIEW",
+        "hazard_ids": [
+          "H09"
+        ]
+      }
+    ],
+    "H06": [
+      {
+        "policy_source": "UNESCO AI Ethics (2021)",
+        "clause_principle": "Transparency & explainability",
+        "nist_function": "**MAP**",
+        "nist_outcome": "document intended use, limitations, known unknowns; **MEASURE**",
+        "eu_ai_act_tier": "**User transparency** (instructions, disclosures); **High‑risk**: technical documentation & instructions for use",
+        "example_hazard": "Opaque recommendation affecting benefits eligibility",
+        "decision_code": "REVIEW",
+        "hazard_ids": [
+          "H06"
+        ]
+      },
+      {
+        "policy_source": "UN Core Values",
+        "clause_principle": "Integrity (truthfulness; avoid deception)",
+        "nist_function": "**MEASURE**",
+        "nist_outcome": "groundedness/factuality checks; **MANAGE**",
+        "eu_ai_act_tier": "**GPAI transparency**; **High‑risk**: record‑keeping & logging obligations",
+        "example_hazard": "Fabricated citations / misinformation",
+        "decision_code": "REVIEW",
+        "hazard_ids": [
+          "H06"
+        ]
+      }
+    ],
+    "H08": [
+      {
+        "policy_source": "UNESCO AI Ethics (2021)",
+        "clause_principle": "Environment & ecosystem",
+        "nist_function": "**GOVERN**",
+        "nist_outcome": "sustainability objectives; **MEASURE**",
+        "eu_ai_act_tier": "**Provider duties** to mitigate systemic risk (for powerful GPAI); risk mgmt for high‑risk",
+        "example_hazard": "Excessive compute without mitigation; unsafe degradation under stress",
+        "decision_code": "REVIEW",
+        "hazard_ids": [
+          "H08"
+        ]
+      }
+    ],
+    "H01": [
+      {
+        "policy_source": "OWASP LLM Top‑10 (2025)",
+        "clause_principle": "Prompt Injection",
+        "nist_function": "**MEASURE**",
+        "nist_outcome": "adversarial testing; **MANAGE**",
+        "eu_ai_act_tier": "**GPAI**: model evals/adversarial testing; **High‑risk**: robustness & cybersecurity",
+        "example_hazard": "Untrusted page injects instructions to exfiltrate data",
+        "decision_code": "BLOCK (on tool call)",
+        "hazard_ids": [
+          "H01"
+        ]
+      }
+    ],
+    "H02": [
+      {
+        "policy_source": "OWASP LLM Top‑10 (2025)",
+        "clause_principle": "Improper Output Handling",
+        "nist_function": "**MANAGE**",
+        "nist_outcome": "output validation & sanitization gates; **GOVERN**",
+        "eu_ai_act_tier": "**Provider/User duties** to ensure safe integration; **High‑risk**: logging, cybersecurity",
+        "example_hazard": "LLM returns HTML/JS executed downstream (XSS/RCE)",
+        "decision_code": "SANITIZE",
+        "hazard_ids": [
+          "H02"
+        ]
+      }
+    ],
+    "H07": [
+      {
+        "policy_source": "UN Charter / Accountability",
+        "clause_principle": "Rule of law; justice",
+        "nist_function": "**GOVERN**",
+        "nist_outcome": "logging, traceability, auditability; **MANAGE**",
+        "eu_ai_act_tier": "**High‑risk**: logging/traceability & post‑market monitoring; incident reporting",
+        "example_hazard": "Missing logs/trace IDs for adverse decisions",
+        "decision_code": "REVIEW (hold until instrumented)",
+        "hazard_ids": [
+          "H07"
+        ]
+      }
+    ]
+  }
+}

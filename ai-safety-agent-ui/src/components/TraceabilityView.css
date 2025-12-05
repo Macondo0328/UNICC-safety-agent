@@ -1,0 +1,209 @@
+.traceability-view {
+  padding: 2rem;
+  background: var(--streamlit-background);
+  border-radius: var(--streamlit-radius-xl);
+}
+
+.traceability-header {
+  margin-bottom: 2rem;
+}
+
+.traceability-header h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--streamlit-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.traceability-subtitle {
+  color: var(--streamlit-text-secondary);
+  margin: 0;
+}
+
+.traceability-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 200px;
+}
+
+.filter-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--streamlit-text);
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 0.5rem;
+  border: 1px solid var(--streamlit-border);
+  border-radius: var(--streamlit-radius-md);
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  outline: none;
+  border-color: var(--streamlit-primary);
+  box-shadow: 0 0 0 3px rgba(var(--streamlit-primary-rgb), 0.1);
+}
+
+.clear-filters {
+  padding: 0.5rem 1rem;
+  background: var(--streamlit-surface);
+  border: 1px solid var(--streamlit-border);
+  border-radius: var(--streamlit-radius-md);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: var(--streamlit-transition);
+}
+
+.clear-filters:hover {
+  background: var(--streamlit-border);
+}
+
+.traceability-table-container {
+  background: var(--streamlit-surface);
+  border: 1px solid var(--streamlit-border);
+  border-radius: var(--streamlit-radius-lg);
+  overflow: hidden;
+}
+
+.traceability-stats {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 1.5rem;
+  background: var(--streamlit-background);
+  border-bottom: 1px solid var(--streamlit-border);
+  font-size: 0.875rem;
+  color: var(--streamlit-text-secondary);
+}
+
+.traceability-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.traceability-table thead {
+  background: var(--streamlit-background);
+}
+
+.traceability-table th {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--streamlit-text-secondary);
+  border-bottom: 2px solid var(--streamlit-border);
+}
+
+.traceability-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--streamlit-border);
+  font-size: 0.875rem;
+}
+
+.traceability-table tbody tr:hover {
+  background: var(--streamlit-background);
+}
+
+.traceability-table code {
+  background: var(--streamlit-background);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--streamlit-radius-sm);
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+}
+
+.hazard-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: var(--streamlit-primary);
+  color: white;
+  border-radius: var(--streamlit-radius-sm);
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.hazard-name-small {
+  font-size: 0.75rem;
+  color: var(--streamlit-text-secondary);
+  margin-top: 0.25rem;
+}
+
+.result-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--streamlit-radius-md);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.result-badge.passed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.result-badge.failed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.result-badge.unknown {
+  background: var(--streamlit-surface);
+  color: var(--streamlit-text-secondary);
+}
+
+.evidence-link {
+  color: var(--streamlit-primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: var(--streamlit-transition);
+}
+
+.evidence-link:hover {
+  text-decoration: underline;
+}
+
+.no-evidence {
+  color: var(--streamlit-text-secondary);
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  color: var(--streamlit-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .traceability-filters {
+    flex-direction: column;
+  }
+  
+  .filter-group {
+    width: 100%;
+  }
+  
+  .traceability-table {
+    font-size: 0.75rem;
+  }
+  
+  .traceability-table th,
+  .traceability-table td {
+    padding: 0.5rem;
+  }
+}
+

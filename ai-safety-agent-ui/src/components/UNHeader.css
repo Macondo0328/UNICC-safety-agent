@@ -1,0 +1,254 @@
+/* UN-Compliant Header Styles - Streamlit Style */
+.un-header {
+  background: var(--streamlit-background);
+  border-bottom: 1px solid var(--streamlit-border);
+  box-shadow: var(--streamlit-shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.un-header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--streamlit-spacing-md) var(--streamlit-spacing-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.un-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.un-emblem-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.un-emblem {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.un-emblem-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.un-emblem-clear-space {
+  width: 0.5rem; /* Clear space around emblem */
+}
+
+.un-title-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.un-title {
+  font-family: var(--streamlit-font-family);
+  font-size: var(--streamlit-font-size-2xl);
+  font-weight: 600;
+  color: var(--streamlit-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.un-subtitle {
+  font-family: var(--streamlit-font-family);
+  font-size: var(--streamlit-font-size-sm);
+  color: var(--streamlit-text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+.un-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.un-nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
+}
+
+.un-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--streamlit-spacing-sm);
+  padding: var(--streamlit-spacing-sm) var(--streamlit-spacing-lg);
+  background: none;
+  border: none;
+  border-radius: var(--streamlit-radius-md);
+  font-family: var(--streamlit-font-family);
+  font-size: var(--streamlit-font-size-sm);
+  font-weight: 500;
+  color: var(--streamlit-text-secondary);
+  cursor: pointer;
+  transition: var(--streamlit-transition);
+  text-decoration: none;
+}
+
+.un-nav-item:hover {
+  background-color: var(--streamlit-surface);
+  color: var(--streamlit-text);
+}
+
+.un-nav-item.active {
+  background-color: var(--streamlit-primary);
+  color: #ffffff;
+}
+
+.un-nav-item:focus {
+  outline: 2px solid var(--streamlit-primary);
+  outline-offset: 2px;
+}
+
+.un-nav-icon {
+  font-size: 1rem;
+}
+
+.un-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.un-user-menu {
+  display: flex;
+  align-items: center;
+}
+
+.un-user-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: #1e293b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.un-user-button:hover {
+  background-color: #f1f5f9;
+  border-color: #009EDB;
+}
+
+.un-user-button:focus {
+  outline: 2px solid #009EDB;
+  outline-offset: 2px;
+}
+
+.un-user-avatar {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f5f9;
+  border-radius: 50%;
+  font-size: 0.75rem;
+}
+
+.un-user-name {
+  font-weight: 500;
+}
+
+.un-header-secondary {
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.un-context-bar {
+  padding: 0.75rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.un-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.un-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.un-stat-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 400;
+}
+
+.un-stat-value {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  color: #1e293b;
+  font-weight: 600;
+  background-color: #ffffff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #e2e8f0;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .un-header-main {
+    padding: 1rem;
+  }
+  
+  .un-nav {
+    display: none;
+  }
+  
+  .un-title {
+    font-size: 1.25rem;
+  }
+  
+  .un-subtitle {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .un-header-main {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .un-header-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .un-emblem {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .un-title {
+    font-size: 1.125rem;
+  }
+  
+  .un-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
