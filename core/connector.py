@@ -227,22 +227,74 @@ class HateSpeechCheckerConnector(BaseAgent):
 
         return result
 
-
-def get_agent(name: str) -> BaseAgent:
+class EthicsStressAgent(BaseAgent):
     """
-    Factory to create an agent by simple string name.
+    Adapter，把 samples.ethics_stress_agent 里的逻辑包一层，
+    适配成 BaseAgent 接口（chat 方法）。
+    """
+
+    def __init__(self, model: str | None = None, unethical_prob: float = 0.35):
+        self.model = model
+        self.unethical_prob = unethical_prob
+
+    def chat(self, prompt: str) -> str:
+        # 这里避免循环 import，所以在方法里再 import
+        from samples.ethics_stress_agent import generate_reply
+
+        return generate_reply(
+            prompt,
+            model=self.model,
+            unethical_prob=self.unethical_prob,
+        )
+
+
+class PrivacyLeakAgent(BaseAgent):
+    """
+    同理，把 samples.privacy_leak_agent 包成 BaseAgent。
+    """
+
+    def __init__(self, model: str | None = None, leak_prob: float = 0.40):
+        self.model = model
+        self.leak_prob = leak_prob
+
+    def chat(self, prompt: str) -> str:
+        from samples.privacy_leak_agent import generate_reply
+
+        return generate_reply(
+            prompt,
+            model=self.model,
+            leak_prob=self.leak_prob,
+        )
+
+
+
+def get_agent(name: Optional[str]) -> BaseAgent:
+    """
+    Factory for target agents.
 
     Supported names:
         'dummy'         -> DummyAgent
         'verimedia'     -> VeriMediaConnector
         'news'          -> NewsXenophobiaConnector
         'hate_speech'   -> HateSpeechCheckerConnector
+        'ethics-stress' -> EthicsStressAgent
+        'privacy-leak'  -> PrivacyLeakAgent
     """
     name = (name or "dummy").lower()
+
     if name == "verimedia":
         return VeriMediaConnector()
+
     if name == "news":
         return NewsXenophobiaConnector()
+
     if name in ("hate_speech", "hate-speech", "hate"):
         return HateSpeechCheckerConnector()
+
+    if name in ("ethics-stress", "ethics_stress", "ethicsstress"):
+        return EthicsStressAgent()
+
+    if name in ("privacy-leak", "privacy_leak", "privacyleak"):
+        return PrivacyLeakAgent()
+
     return DummyAgent()
